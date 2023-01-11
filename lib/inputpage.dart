@@ -1,5 +1,7 @@
+import 'package:bmi_calculator/iconContent.dart';
 import 'package:bmi_calculator/my_container.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const Color color = Color(0xFF1D1D33);
 
@@ -18,10 +20,6 @@ class _InputPageState extends State<InputPage> {
           centerTitle: true,
           title: const Text("BMI Calculator"),
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {},
-        //   child: const Icon(Icons.add),
-        // ),
         body: Column(
           children: [
             Expanded(
@@ -30,27 +28,38 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                     child: MyContainer(
                   color: color,
+                  cardChild: IconContent(
+                    icon: FontAwesomeIcons.mars,
+                    text: 'MALE',
+                  ),
                 )),
                 Expanded(
                     child: MyContainer(
                   color: color,
+                  cardChild: IconContent(
+                    icon: FontAwesomeIcons.venus,
+                    text: 'FEMALE',
+                  ),
                 )),
               ],
             )),
-            const Expanded(
+            Expanded(
                 child: MyContainer(
               color: color,
+              cardChild: Container(),
             )),
             Expanded(
                 child: Row(
-              children: const [
+              children: [
                 Expanded(
                     child: MyContainer(
                   color: color,
+                  cardChild: Container(),
                 )),
                 Expanded(
                     child: MyContainer(
                   color: color,
+                  cardChild: Container(),
                 )),
               ],
             )),
