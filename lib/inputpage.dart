@@ -1,9 +1,13 @@
+import 'package:bmi_calculator/constant.dart';
 import 'package:bmi_calculator/iconContent.dart';
 import 'package:bmi_calculator/my_container.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const Color color = Color(0xFF1D1D33);
+enum Gender {
+  female,
+  male,
+}
 
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
@@ -13,6 +17,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender? selectedGender;
+  int height = 180;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +30,33 @@ class _InputPageState extends State<InputPage> {
           children: [
             Expanded(
                 child: Row(
-              children: const [
+              children: [
                 Expanded(
                     child: MyContainer(
-                  color: color,
-                  cardChild: IconContent(
+                  onPress: () {
+                    setState(() {
+                      selectedGender = Gender.male;
+                    });
+                  },
+                  color: selectedGender == Gender.male
+                      ? activeCardColor
+                      : inactiveCardColor,
+                  cardChild: const IconContent(
                     icon: FontAwesomeIcons.mars,
                     text: 'MALE',
                   ),
                 )),
                 Expanded(
                     child: MyContainer(
-                  color: color,
-                  cardChild: IconContent(
+                  onPress: () {
+                    setState(() {
+                      selectedGender = Gender.female;
+                    });
+                  },
+                  color: selectedGender == Gender.female
+                      ? activeCardColor
+                      : inactiveCardColor,
+                  cardChild: const IconContent(
                     icon: FontAwesomeIcons.venus,
                     text: 'FEMALE',
                   ),
@@ -45,20 +65,66 @@ class _InputPageState extends State<InputPage> {
             )),
             Expanded(
                 child: MyContainer(
-              color: color,
-              cardChild: Container(),
+              color: activeCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'HEIGHT',
+                    style: labelTextStyle,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        height.toString(),
+                        style: numberTextStyle,
+                      ),
+                      const Text(
+                        'cm',
+                        style: labelTextStyle,
+                      ),
+                    ],
+                  ),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                        trackHeight: 1.0,
+                        activeTrackColor: Colors.white,
+                        thumbColor: buttomNavColor,
+                        overlayColor: const Color(0x29EB1555),
+                        thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 15.0),
+                        overlayShape:
+                            const RoundSliderOverlayShape(overlayRadius: 30.0)),
+                    child: Slider(
+                      onChanged: (double value) {
+                        setState(() {
+                          height = value.round();
+                        });
+                      },
+                      inactiveColor: textColor,
+                      min: 120.0,
+                      max: 220.0,
+                      value: height.toDouble(),
+                    ),
+                  )
+                ],
+              ),
             )),
             Expanded(
                 child: Row(
               children: [
                 Expanded(
                     child: MyContainer(
-                  color: color,
+                  color: activeCardColor,
                   cardChild: Container(),
                 )),
                 Expanded(
                     child: MyContainer(
-                  color: color,
+                  color: activeCardColor,
                   cardChild: Container(),
                 )),
               ],
@@ -67,7 +133,7 @@ class _InputPageState extends State<InputPage> {
               height: 80,
               width: double.maxFinite,
               margin: const EdgeInsets.only(top: 10),
-              color: const Color(0xFFEB1555),
+              color: buttomNavColor,
             )
           ],
         ));
