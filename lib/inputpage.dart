@@ -1,6 +1,7 @@
 import 'package:bmi_calculator/constant.dart';
 import 'package:bmi_calculator/iconContent.dart';
 import 'package:bmi_calculator/my_container.dart';
+import 'package:bmi_calculator/round_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -19,6 +20,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 180;
+  int weight = 60;
+  int age = 18;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +70,7 @@ class _InputPageState extends State<InputPage> {
                 child: MyContainer(
               color: activeCardColor,
               cardChild: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
@@ -120,12 +123,84 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                     child: MyContainer(
                   color: activeCardColor,
-                  cardChild: Container(),
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "WEIGHT",
+                        style: labelTextStyle,
+                      ),
+                      Text(
+                        weight.toString(),
+                        style: numberTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RoundIconButton(
+                            onPress: () {
+                              setState(() {
+                                weight--;
+                              });
+                            },
+                            icon: FontAwesomeIcons.minus,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          RoundIconButton(
+                            onPress: () {
+                              setState(() {
+                                weight++;
+                              });
+                            },
+                            icon: FontAwesomeIcons.plus,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 )),
                 Expanded(
                     child: MyContainer(
                   color: activeCardColor,
-                  cardChild: Container(),
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "AGE",
+                        style: labelTextStyle,
+                      ),
+                      Text(
+                        age.toString(),
+                        style: numberTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RoundIconButton(
+                            onPress: () {
+                              setState(() {
+                                age--;
+                              });
+                            },
+                            icon: FontAwesomeIcons.minus,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          RoundIconButton(
+                            onPress: () {
+                              setState(() {
+                                age++;
+                              });
+                            },
+                            icon: FontAwesomeIcons.plus,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 )),
               ],
             )),
